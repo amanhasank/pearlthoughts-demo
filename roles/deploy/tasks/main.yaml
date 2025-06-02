@@ -1,6 +1,6 @@
 - name: Clone your Yii2 repo
   git:
-    repo: 'https://github.com/yourusername/yourrepo.git'
+    repo: 'https://github.com/amanhasank/pearlthoughts-demo.git'
     dest: /opt/yii2-app
     version: main
 
