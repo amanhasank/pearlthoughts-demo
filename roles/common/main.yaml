@@ -1,0 +1,14 @@
+- name: Install dependencies
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - git
+      - php
+      - php-cli
+      - unzip
+    state: present
+    update_cache: yes
+

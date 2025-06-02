@@ -1,0 +1,11 @@
+- name: Clone your Yii2 repo
+  git:
+    repo: 'https://github.com/yourusername/yourrepo.git'
+    dest: /opt/yii2-app
+    version: main
+
+- name: Deploy Yii2 Docker Swarm stack
+  shell: docker stack deploy -c docker-stack.yaml yii2
+  args:
+    chdir: /opt/yii2-app
+
