@@ -4,6 +4,13 @@
     dest: /opt/yii2-app
     version: main
 
+- name: Initialize Docker Swarm
+  command: docker swarm init
+  register: swarm_init
+  failed_when: "'Error response from daemon: This node is already part of a swarm' not in swarm_init.stderr and swarm_init.rc != 0"
+  changed_when: "'This node joined a swarm as a manager' in swarm_init.stdout or 'Swarm initialized' in swarm_init.stdout"
+
+
 - name: Deploy Yii2 Docker Swarm stack
   shell: docker stack deploy -c docker-stack.yaml yii2
   args:

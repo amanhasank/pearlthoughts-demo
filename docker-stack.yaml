@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   yii2:
-    image: yourdockerhubusername/yii2-app:latest
+    image: yiisoftware/yii2-php:7.4-apache
     ports:
       - 8080:80  # Internal, NGINX will handle public routing
     networks:
