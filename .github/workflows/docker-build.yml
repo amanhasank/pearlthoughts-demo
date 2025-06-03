@@ -7,6 +7,9 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  EC2_HOST: 35.174.166.49
+  EC2_USER: ubuntu
+  DEPLOY_PATH: /opt/yii2-app
 
 jobs:
   build-and-push:
@@ -31,4 +34,17 @@ jobs:
         with:
           context: ./yii2-app-code
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} 
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.EC2_HOST }}
+          username: ${{ env.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ${{ env.DEPLOY_PATH }}
+            # Update the image tag in docker-stack.yml
+            sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}|" docker-stack.yml
+            # Deploy the updated stack
+            docker stack deploy -c docker-stack.yml yii2 
