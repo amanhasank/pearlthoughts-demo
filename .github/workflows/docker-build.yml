@@ -45,6 +45,6 @@ jobs:
           script: |
             cd ${{ env.DEPLOY_PATH }}
             # Update the image tag in docker-stack.yml
-            sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}|" /opt/yii2-app/docker-stack.yml
+            sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}|" /opt/yii2-app/docker-stack.yaml
             # Deploy the updated stack
             docker stack deploy -c docker-stack.yml yii2 
