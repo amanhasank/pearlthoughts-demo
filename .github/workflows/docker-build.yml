@@ -9,7 +9,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
   EC2_HOST: 35.174.166.49
   EC2_USER: ubuntu
-  DEPLOY_PATH: /opt/yii2-app
+  DEPLOY_PATH: /opt/yii2-app/
 
 jobs:
   build-and-push:
@@ -45,6 +45,7 @@ jobs:
           script: |
             cd ${{ env.DEPLOY_PATH }}
             # Update the image tag in docker-stack.yml
-            sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}|" /opt/yii2-app/docker-stack.yaml
+            ls -lrth
+            sudo sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}|" docker-stack.yaml
             # Deploy the updated stack
             docker stack deploy -c docker-stack.yml yii2 
