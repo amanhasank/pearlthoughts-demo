@@ -3,6 +3,7 @@
     repo: 'https://github.com/amanhasank/pearlthoughts-demo.git'
     dest: /opt/yii2-app
     version: main
+    force: yes
 
 - name: Initialize Docker Swarm
   command: docker swarm init
