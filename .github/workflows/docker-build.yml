@@ -48,4 +48,4 @@ jobs:
             ls -lrth
             sudo sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}|" docker-stack.yaml
             # Deploy the updated stack
-            docker stack deploy -c docker-stack.yaml yii2 
+            sudo docker stack deploy -c docker-stack.yaml yii2 
