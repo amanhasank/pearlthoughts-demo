@@ -7,6 +7,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN a2enmod rewrite
 
+# Set working directory
+WORKDIR /var/www/html
+
 # Copy composer files first
 COPY composer.json composer.lock ./
 
