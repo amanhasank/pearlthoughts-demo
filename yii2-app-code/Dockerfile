@@ -8,7 +8,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN a2enmod rewrite
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Copy composer files first
 COPY composer.json composer.lock ./
@@ -22,10 +22,13 @@ COPY . .
 # Generate autoload files
 RUN composer dump-autoload --optimize
 
-RUN chown -R www-data:www-data /var/www
+# Ensure proper permissions
+RUN chown -R www-data:www-data /var/www/html
 
-ENV APACHE_DOCUMENT_ROOT /var/www/web
+# Set Apache document root to web directory
+ENV APACHE_DOCUMENT_ROOT /var/www/html/web
 
+# Update Apache configuration
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 
 EXPOSE 80
