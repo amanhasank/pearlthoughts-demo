@@ -44,8 +44,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ${{ env.DEPLOY_PATH }}
-            # Update the image tag in docker-stack.yml
+            # Update the image tag in docker-stack.yaml
             ls -lrth
             sudo sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}|" docker-stack.yaml
             # Deploy the updated stack
-            docker stack deploy -c docker-stack.yml yii2 
+            docker stack deploy -c docker-stack.yaml yii2 
