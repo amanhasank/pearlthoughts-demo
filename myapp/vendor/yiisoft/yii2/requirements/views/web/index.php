@@ -41,7 +41,7 @@
             </div>
         <?php else: ?>
             <div class="alert alert-success">
-                <strong>Congratulations Aman ! Your server configuration satisfies all requirements.</strong>
+                <strong>Congratulations Aman the great! Your server configuration satisfies all requirements.</strong>
             </div>
         <?php endif; ?>
 
